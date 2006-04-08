@@ -215,7 +215,7 @@
         function corp_link() {
             if ($this->corp_id && $this->corp) {
                 global $_WEB_URL;
-                $url = "$_WEB_URL/show.php?corpid=" . $this->corp_id;
+                $url = "$_WEB_URL/show_corp.php?corpid=" . $this->corp_id;
                 return "<a href='$url'>" . $this->corp . "</a>";
             }
         }

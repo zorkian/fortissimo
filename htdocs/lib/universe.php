@@ -377,7 +377,7 @@
     }
     function get_corp_link($corpid) {
         global $_WEB_URL;
-        $url = $_WEB_URL . "/show.php?corpid=" . $corpid;
+        $url = $_WEB_URL . "/show_corp.php?corpid=" . $corpid;
         return "<a href='$url'>" . get_corp_name($corpid) . "</a>";
     }
     function get_weapon_link($weaponid) {
