@@ -19,7 +19,7 @@
     $get = array( 'week' => this_week(), 'month' => this_month(), 'year' => this_year(), 'ever' => 0 );
     foreach ($get as $when => $val) {
         $st = $ft->dbh->_select_row_as_assoc('SELECT * FROM tbl:stats WHERE type = "corp" AND var1 = ? AND dtype = ? AND var2 = ?',
-                                             array($pilotid, $when, $val));
+                                             array($corpid, $when, $val));
         $stats[$when] = $st;
     }
 
@@ -28,7 +28,7 @@
     $ft->assign('t10shipslost', get_top10('corp', $corpid, 'ship_lost'));
     $ft->assign('t10shipsdestroyed', get_top10('corp', $corpid, 'ship_killed'));
     $ft->assign('t10systems', get_top10('corp', $corpid, 'system'));
-    $ft->assign('t10targets', get_top10('corp', $corpid, 'corp'));
+    $ft->assign('t10targets', get_top10('corp', $corpid, 'pilot'));
     $ft->assign('t10shipsflown', get_top10('corp', $corpid, 'ship_flown'));
 
     # get the last 50 final blows
@@ -73,7 +73,8 @@
                                   'iskdestroyed' => 'ISK Destroyed',
                                   'isklost' => 'ISK Lost',
                                    ));
-    $ft->assign('pilot', $pilot);
+    $ft->assign('corp', $corp);
+    $ft->assign('corpid', $corpid);
     $ft->assign('stats', $stats);
     $ft->assign('killids2', $kids);
     $ft->assign('kills2', $ks);

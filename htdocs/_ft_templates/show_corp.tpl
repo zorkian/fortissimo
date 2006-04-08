@@ -6,7 +6,7 @@
 
 <tr><td colspan='6' class='dateheader'>Corporation Statistics - {$corp}</td></tr>
 
-<tr><td rowspan='12' width='256'>[ logo ]</td>
+<tr><td rowspan='12' width='256'>&nbsp;</td>
     <td class='headers bl c'>&nbsp;</td>
     <td class='headers bl c'>This Week</td>
     <td class='headers bl c'>This Month</td>
