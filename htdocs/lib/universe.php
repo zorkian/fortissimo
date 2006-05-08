@@ -18,6 +18,15 @@
         return 0;
     }
 
+    # general purpose cacheing function that, given an area and a key, will see if
+    # we have a value stored.  optional third argument is to set the value for that
+    # cached item.
+    #
+    # $var = _cache("pilot_obj", $pilotid)
+    #    returns whatever pilot_obj we have with the $pilotid as the key, null on none
+    #
+    # _cache("pilot_obj", 1, $obj)
+    #    set pilot_obj with id of 1 to be $obj
     function _cache($area, $key, $set = null) {
         global $_CACHE;
         if (! is_null($set)) {
