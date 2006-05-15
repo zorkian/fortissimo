@@ -58,6 +58,26 @@
             return $row->name;
         }
 
+        # get the id of something
+        function getId( $table, $primkeycol, $name ) {
+            global $ft;
+
+            # if no id, use our name
+            if ( is_null( $name ) ) {
+                return $this->Id;
+            }
+
+            # okay, so let's load it
+            $row = $ft->dbh->_select_row_as_object(
+                "SELECT * FROM tbl:$table WHERE name = ?",
+                array( $name )
+            );
+            if ( is_null( $row ) ) {
+                return Null;
+            }
+            return $row->$primkeycol;
+        }
+
     }
 
 ?>

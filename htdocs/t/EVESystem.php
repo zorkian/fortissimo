@@ -8,4 +8,7 @@
     echo("okay new test - " . EVESystem::getName( 30003808 ) . "<br />");
     echo("if those are both Grispire, you're golden <tt>:)</tt><br />");
 
+    echo("test again - " . $test->getId() . " should be 30003808<br />");
+    echo("this should be too - " . EVESystem::getId( 'Grispire' ) . "<br />");
+
 ?>

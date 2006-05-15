@@ -38,6 +38,12 @@
         function getName( $id = null ) {
             return parent::getName( 'systems', 'systemid', $id );
         }
+
+        # and now pass through to get id function
+        function getId( $name = null ) {
+            return parent::getId( 'systems', 'systemid', $name );
+        }
+
     }
 
 ?>
