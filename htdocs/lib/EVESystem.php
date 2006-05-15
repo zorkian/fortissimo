@@ -13,6 +13,7 @@
         # data of ours
         var $RegionId = null;
         var $ConstellationId = null;
+        var $Security = null;
 
         # create a new System class object to represent a particular system
         function EVESystem( $id ) {
@@ -21,6 +22,7 @@
 
             # pull out more information
             $this->RegionId = $this->int_Obj->regionid;
+            $this->Security = $this->int_Obj->security;
             $this->ConstellationId = $this->int_Obj->constellationid;
         }
 

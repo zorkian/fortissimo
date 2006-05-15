@@ -1,23 +1,5 @@
 <?php
 
-    # given system name, return systemid
-    function get_system_id($name, $security = null) {
-        global $ft;
-        $sys = $ft->dbh->_select_row_as_object('SELECT systemid FROM tbl:systems WHERE name = ?',
-                                               array($name));
-        if ($sys) {
-            return $sys->systemid;
-        }
-
-        if ($security) {
-            $ft->dbh->_do_query('INSERT INTO tbl:systems (name, regionid, security) VALUES (?, ?, ?)',
-                                array($name, null, $security));
-            return get_system_id($name);
-        }
-
-        return 0;
-    }
-
     # general purpose cacheing function that, given an area and a key, will see if
     # we have a value stored.  optional third argument is to set the value for that
     # cached item.
@@ -93,103 +75,6 @@
             return $sys->name;
         }
         return null;
-    }
-
-    # given systemid, return system security
-    function get_system_security($systemid) {
-        if ($name = _cache("system_security", $systemid)) {
-            return $name;
-        }
-        global $ft;
-        $sys = $ft->dbh->_select_row_as_object('SELECT security FROM tbl:systems WHERE systemid = ?',
-                                               array($systemid));
-        if ($sys) {
-#            $sec = sprintf("%0.1f", $sys->security / 100);
-            _cache("system_security", $systemid, $sys->security);
-            return $sys->security;
-        }
-        return null;
-    }
-
-    # given systemid, return system name
-    function get_system_name($systemid) {
-        if ($name = _cache("system_name", $systemid)) {
-            return $name;
-        }
-        global $ft;
-        $sys = $ft->dbh->_select_row_as_object('SELECT name FROM tbl:systems WHERE systemid = ?',
-                                               array($systemid));
-        if ($sys) {
-            _cache("system_name", $systemid, $sys->name);
-            return $sys->name;
-        }
-        return null;
-    }
-
-    # given systemid, return system name
-    function get_system_constellation_id($systemid) {
-        if ($name = _cache("system_constellation_id", $systemid)) {
-            return $name;
-        }
-        global $ft;
-        $sys = $ft->dbh->_select_row_as_object('SELECT constellationid FROM tbl:systems WHERE systemid = ?',
-                                               array($systemid));
-        if ($sys) {
-            _cache("system_constellation_id", $systemid, $sys->constellationid);
-            return $sys->constellationid;
-        }
-        return null;
-    }
-
-    # given systemid, return system name
-    function get_system_region_id($systemid) {
-        if ($name = _cache("system_region_id", $systemid)) {
-            return $name;
-        }
-        global $ft;
-        $sys = $ft->dbh->_select_row_as_object('SELECT regionid FROM tbl:systems WHERE systemid = ?',
-                                               array($systemid));
-        if ($sys) {
-            _cache("system_region_id", $systemid, $sys->regionid);
-            return $sys->regionid;
-        }
-        return null;
-    }
-
-    # given constellation name, return constellationid
-    function get_constellation_id($name, $first = 1) {
-        global $ft;
-        $sys = $ft->dbh->_select_row_as_object('SELECT constellationid FROM tbl:constellations WHERE name = ?',
-                                               array($name));
-        if ($sys) {
-            return $sys->constellationid;
-        }
-
-        if ($first) {
-            $ft->dbh->_do_query('INSERT INTO tbl:constellations (name) VALUES (?)',
-                                array($name));
-            return get_constellation_id($name, 0); # 0 to not retry the insert if we fail again
-        }
-
-        return 0;
-    }
-
-    # given region name, return regionid
-    function get_region_id($name, $first = 1) {
-        global $ft;
-        $sys = $ft->dbh->_select_row_as_object('SELECT regionid FROM tbl:regions WHERE name = ?',
-                                               array($name));
-        if ($sys) {
-            return $sys->regionid;
-        }
-
-        if ($first) {
-            $ft->dbh->_do_query('INSERT INTO tbl:regions (name) VALUES (?)',
-                                array($name));
-            return get_region_id($name, 0); # 0 to not retry the insert if we fail again
-        }
-
-        return 0;
     }
 
     # given systemid, return system name
@@ -438,36 +323,6 @@
                                                array($regionid));
         if ($sys) {
             _cache("alliance_name", $regionid, $sys->name);
-            return $sys->name;
-        }
-        return null;
-    }
-
-    # given systemid, return system name
-    function get_constellation_name($constellationid) {
-        if ($name = _cache("constellation_name", $constellationid)) {
-            return $name;
-        }
-        global $ft;
-        $sys = $ft->dbh->_select_row_as_object('SELECT name FROM tbl:constellations WHERE constellationid = ?',
-                                               array($constellationid));
-        if ($sys) {
-            _cache("constellation_name", $constellationid, $sys->name);
-            return $sys->name;
-        }
-        return null;
-    }
-
-    # given systemid, return system name
-    function get_region_name($regionid) {
-        if ($name = _cache("region_name", $regionid)) {
-            return $name;
-        }
-        global $ft;
-        $sys = $ft->dbh->_select_row_as_object('SELECT name FROM tbl:regions WHERE regionid = ?',
-                                               array($regionid));
-        if ($sys) {
-            _cache("region_name", $regionid, $sys->name);
             return $sys->name;
         }
         return null;
@@ -765,43 +620,6 @@
             array_push($out, array($val, $row->var3));
         }
         return $out;
-    }
-
-    # classes we use
-    class FtSystem {
-        var $systemid = null;
-        var $regionid = null;
-        var $name = null;
-        var $security = null;
-        
-        function USystem($nameorid, $security = null) {
-            if (is_null($nameorid)) {
-                return;
-            }
-
-            $systemid = null;
-            if (! is_numeric($nameorid)) {
-                $systemid = get_system_id($nameorid, $security);
-            } else {
-                $systemid = $nameorid;
-            }
-
-            if (is_null($systemid)) {
-                return;
-            }
-
-            global $ft;
-            $sys = $ft->dbh->_select_row_as_object('SELECT * FROM tbl:systems WHERE systemid = ?',
-                                                   array($systemid));
-            if (! $sys) {
-                return;
-            }
-
-            $this->systemid = $sys->systemid;
-            $this->regionid = $sys->regionid;
-            $this->name = $sys->name;
-            $this->security = $sys->security;
-        }
     }
 
 ?>
