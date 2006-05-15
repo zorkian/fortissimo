@@ -1,24 +1,24 @@
 <?php
 
     # include needful things
-    include("config.php"); # better be in the same path as us...!
+    require_once("config.php"); # better be in the same path as us...!
 
     # bring in object classes
-    include("EVEObject.php");
-    include("EVERegion.php");
-    include("EVEConstellation.php");
-    include("EVESystem.php");
+    require_once("EVEObject.php");
+    require_once("EVERegion.php");
+    require_once("EVEConstellation.php");
+    require_once("EVESystem.php");
 
     # extra things we need to run
-    include("db.php");
-    include("user.php");
-    include("eveheader.php");
-    include("session.php");
-    include("parser.php");
-    include("universe.php");
+    require_once("db.php");
+    require_once("user.php");
+    require_once("eveheader.php");
+    require_once("session.php");
+    require_once("parser.php");
+    require_once("universe.php");
 
     # now bring in Smarty library
-    include("$_INC_PATH/Smarty.class.php");
+    require_once("$_INC_PATH/Smarty.class.php");
 
     # setup a custom smarty object
     class Fortissimo extends Smarty {
