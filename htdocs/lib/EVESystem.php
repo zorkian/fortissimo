@@ -24,6 +24,11 @@
         function getRegionName() {
 //            return EVERegion::getRegionName( $this->RegionId );
         }
+
+        # pass through to parent's get name function
+        function getName( $tempId = null ) {
+            return parent::getName( 'systems', 'systemid', $tempId );
+        }
     }
 
 ?>

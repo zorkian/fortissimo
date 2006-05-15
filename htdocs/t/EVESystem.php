@@ -5,5 +5,7 @@
 
     $test = new EVESystem( 30003808 );
     echo("got $test - " . $test->getName() . " <br />");
+    echo("okay new test - " . EVESystem::getName( 30003808 ) . "<br />");
+    echo("if those are both Grispire, you're golden <tt>:)</tt><br />");
 
 ?>
