@@ -31,9 +31,19 @@
             return EVERegion::getName( $this->RegionId );
         }
 
+        # get our region id
+        function getRegionId() {
+            return $this->RegionId;
+        }
+
         # get the name of the constellation we're stuck inside
         function getConstellationName() {
             return EVEConstellation::getName( $this->ConstellationId );
+        }
+
+        # get constellation id
+        function getConstellationId() {
+            return $this->ConstellationId;
         }
 
         # pass through to parent's get name function
@@ -44,6 +54,11 @@
         # and now pass through to get id function
         function getId( $name = null ) {
             return parent::getId( 'systems', 'systemid', $name );
+        }
+
+        # return a link to an info page on this system
+        function getLink( $id = null ) {
+            return parent::getLink( 'systems', 'systemid', $id );
         }
 
     }

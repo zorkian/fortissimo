@@ -581,10 +581,12 @@
 
         # ensure people/things we need are in the database
         function reverse_ids() {
-            $this->system = get_system_name($this->system_id);
-            $this->security = get_system_security($this->system_id);
-            $this->region = get_region_name($this->region_id);
-            $this->constellation = get_constellation_name($this->constellation_id);
+            $sys = new EVESystem( $this->system_id );
+            $this->system = $sys->getName;
+            $this->security = $sys->getSecurity();
+            $this->region = $sys->getRegionName();
+            $this->constellation = $sys->getConstellationName();
+
             $this->victim->reverse_ids();
             $this->killer->reverse_ids();
             foreach (array_keys($this->destroyed) as $k) {
@@ -597,9 +599,11 @@
 
         # ensure people/things we need are in the database
         function get_ids() {
-            $this->system_id = get_system_id($this->system, $this->security);
-            $this->region_id = get_system_region_id($this->system_id);
-            $this->constellation_id = get_system_constellation_id($this->system_id);
+            $sys = new EVESystem( EVESystem::getId( $this->system ) );
+            $this->system_id = $sys->getId();
+            $this->region_id = $sys->getRegionId();
+            $this->constellation_id = $sys->getConstellationId();
+
             if ($this->victim) {
                 $this->victim->get_ids();
             }

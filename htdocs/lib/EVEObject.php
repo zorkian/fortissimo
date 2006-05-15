@@ -78,6 +78,22 @@
             return $row->$primkeycol;
         }
 
+        # get the link to something
+        function getLink( $table, $primkeycol, $id ) {
+            global $_WEB_URL;
+
+            $my_id = $id;
+            $my_name = null;
+            if ( is_null( $my_id ) ) {
+                $my_id = $this->Id;
+            } else {
+                # the id was NOT null, so the name is overwritten
+                $my_name = getName( $table, $primkeycol, $id );
+            }
+
+            # now construct the URL
+            return "<a href='$_WEB_URL/show.php?$primkeycol=$my_id'>$my_name</a>";
+        }
     }
 
 ?>

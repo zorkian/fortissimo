@@ -304,11 +304,6 @@
         $url = $_WEB_URL . "/show.php?regionid=" . $regionid;
         return "<a href='$url'>" . get_region_name($regionid) . "</a>";
     }
-    function get_system_link($systemid) {
-        global $_WEB_URL;
-        $url = $_WEB_URL . "/show.php?systemid=" . $systemid;
-        return "<a href='$url'>" . get_system_name($systemid) . "</a>";
-    }
 
     # given systemid, return system name
     function get_alliance_name($regionid) {

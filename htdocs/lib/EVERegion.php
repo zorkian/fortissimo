@@ -22,6 +22,11 @@
         function getId( $name = null ) {
             return parent::getId( 'regions', 'regionid', $name );
         }
+
+        # return a link to an info page on this region
+        function getLink( $id = null ) {
+            return parent::getLink( 'regions', 'regionid', $id );
+        }
     }
 
 ?>

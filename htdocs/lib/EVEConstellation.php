@@ -22,6 +22,11 @@
         function getId( $name = null ) {
             return parent::getId( 'constellations', 'constellationid', $name );
         }
+
+        # return a link to an info page on this constellation
+        function getLink( $id = null ) {
+            return parent::getLink( 'constellations', 'constellationid', $id );
+        }
     }
 
 ?>

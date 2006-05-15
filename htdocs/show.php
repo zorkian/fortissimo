@@ -24,7 +24,7 @@
         array_push($criteria, 'systemid = ?');
         array_push($bind, $systemid);
         array_push($args, "systemid=$systemid");
-        array_push($message, "in <strong>" . get_system_name($systemid) . "</strong>");
+        array_push($message, "in <strong>" . EVESystem::getName($systemid) . "</strong>");
     }
     if (is_numeric($weaponid) && $weaponid > 0) {
         array_push($criteria, 'weaponid = ?');
@@ -36,7 +36,7 @@
         array_push($criteria, 'regionid = ?');
         array_push($bind, $regionid);
         array_push($args, "regionid=$regionid");
-        array_push($message, "in <strong>" . get_region_name($regionid) . "</strong>");
+        array_push($message, "in <strong>" . EVERegion::getName($regionid) . "</strong>");
     }
     if (is_numeric($groupid) && $groupid > 0) {
         array_push($criteria, '(v_groupid = ? OR k_groupid = ?)');
