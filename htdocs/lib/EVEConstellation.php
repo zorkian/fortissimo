@@ -19,7 +19,7 @@
         }
 
         # pass through to parent's get id function
-        function getName( $name = null ) {
+        function getId( $name = null ) {
             return parent::getId( 'constellations', 'constellationid', $name );
         }
     }
