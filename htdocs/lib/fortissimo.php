@@ -3,6 +3,12 @@
     # include needful things
     include("config.php"); # better be in the same path as us...!
 
+    # bring in object classes
+    include("EVEObject.php");
+    include("EVERegion.php");
+    include("EVEConstellation.php");
+    include("EVESystem.php");
+
     # extra things we need to run
     include("db.php");
     include("user.php");
