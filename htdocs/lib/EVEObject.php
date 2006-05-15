@@ -43,7 +43,7 @@
             global $ft;
 
             # if no id, use our name
-            if ( ! is_null( $this ) ) {
+            if ( is_null( $id ) ) {
                 return $this->Name;
             }
 
