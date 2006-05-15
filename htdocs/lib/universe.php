@@ -294,16 +294,6 @@
         $url = $_WEB_URL . "/show.php?itemid=" . $itemid;
         return "<a href='$url'>" . get_item_name($itemid) . "</a>";
     }
-    function get_constellation_link($constellationid) {
-        global $_WEB_URL;
-        $url = $_WEB_URL . "/show.php?constellationid=" . $constellationid;
-        return "<a href='$url'>" . get_constellation_name($constellationid) . "</a>";
-    }
-    function get_region_link($regionid) {
-        global $_WEB_URL;
-        $url = $_WEB_URL . "/show.php?regionid=" . $regionid;
-        return "<a href='$url'>" . get_region_name($regionid) . "</a>";
-    }
 
     # given systemid, return system name
     function get_alliance_name($regionid) {
@@ -482,9 +472,11 @@
         foreach ($data as $r) {
             $k = new KillMail;
             $k->kill_id = $r->killid;
-            $k->system_id = $r->systemid;
-            $k->region_id = get_system_region_id($k->system_id);
-            $k->constellation_id = get_system_constellation_id($k->system_id);
+
+            $sys = new EVESystem( $r->systemid );
+            $k->system_id = $sys->getId();
+            $k->region_id = $sys->getRegionId();
+            $k->constellation_id = $sys->getConstellationId();
             $k->killtime = $r->killtime;
             $k->raw_id = $r->mailid;
 
@@ -608,7 +600,7 @@
             } elseif ($what == 'pilot') {
                 $val = get_pilot_name($row->var2) . ' [' . get_corp_ticker(get_pilot_corpid($row->var2)) . ']';
             } elseif ($what == 'system') {
-                $val = get_system_name($row->var2);
+                $val = EVESystem::getName( $row->var2 );
             } elseif ($what == 'ship_killed' || $what == 'ship_lost' || $what == 'ship_flown') {
                 $val = get_item_name($row->var2);
             }
