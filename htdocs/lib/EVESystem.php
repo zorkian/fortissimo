@@ -2,7 +2,12 @@
 
     require_once('lib/fortissimo.php');
     require_once('lib/EVEObject.php');
-//    require_once('lib/EVERegion.php');
+    require_once('lib/EVERegion.php');
+    require_once('lib/EVEConstellation.php');
+
+    // systems contain things, this is the level at which action happens
+    // within this great universe of ours.  a system is in a constellation
+    // which is then in a region.
 
     class EVESystem extends EVEObject {
         # data of ours
@@ -10,24 +15,28 @@
         var $ConstellationId = null;
 
         # create a new System class object to represent a particular system
-        function EVESystem( $systemId ) {
+        function EVESystem( $id ) {
             # parent object construction
-            $this->EVEObject( 'systems', 'systemid', $systemId );
+            $this->EVEObject( 'systems', 'systemid', $id );
 
             # pull out more information
-            $this->RegionId = $this->int_Obj['regionid'];
-            $this->ConstellationId = $this->int_Obj['constellationid'];
+            $this->RegionId = $this->int_Obj->regionid;
+            $this->ConstellationId = $this->int_Obj->constellationid;
         }
 
-        # these are methods that can be called without having an actual system,
-        # so these are class methods for helping people do things
+        # name of the region we're in
         function getRegionName() {
-//            return EVERegion::getRegionName( $this->RegionId );
+            return EVERegion::getName( $this->RegionId );
+        }
+
+        # get the name of the constellation we're stuck inside
+        function getConstellationName() {
+            return EVEConstellation::getName( $this->ConstellationId );
         }
 
         # pass through to parent's get name function
-        function getName( $tempId = null ) {
-            return parent::getName( 'systems', 'systemid', $tempId );
+        function getName( $id = null ) {
+            return parent::getName( 'systems', 'systemid', $id );
         }
     }
 
