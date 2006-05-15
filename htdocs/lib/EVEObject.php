@@ -86,6 +86,7 @@
             $my_name = null;
             if ( is_null( $my_id ) ) {
                 $my_id = $this->Id;
+                $my_name = $this->Name;
             } else {
                 # the id was NOT null, so the name is overwritten
                 $my_name = EVEObject::getName( $table, $primkeycol, $id );

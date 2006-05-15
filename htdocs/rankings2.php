@@ -53,15 +53,16 @@
                 if ($which == 'pilot') {
                     array_push($out, array(get_pilot_link($row->var1), $row->val));
                 } elseif ($which == 'system') {
-                    array_push($out, array(get_system_link($row->var1) . 
-                                ' (<span style="color: ' . security_color(get_system_security($row->var1)) . ';">' .
-                                security(get_system_security($row->var1)) . '</span>)', $row->val));
+                    $sys = new EVESystem( $row->var1 );
+                    array_push($out, array($sys->getLink() . 
+                                ' (<span style="color: ' . security_color($sys->getSecurity()) . ';">' .
+                                security($sys->getSecurity()) . '</span>)', $row->val));
                 } elseif ($which == 'corp') {
                     array_push($out, array(get_corp_link($row->var1), $row->val));
                 } elseif ($which == 'alliance') {
                     array_push($out, array(get_alliance_link($row->var1), $row->val));
                 } elseif ($which == 'region') {
-                    array_push($out, array(get_region_link($row->var1), $row->val));
+                    array_push($out, array(EVERegion::getLink($row->var1), $row->val));
                 } elseif ($which == 'group') {
                     array_push($out, array(get_group_link($row->var1), $row->val));
                 } elseif ($which == 'ship') {
