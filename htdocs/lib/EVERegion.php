@@ -17,6 +17,11 @@
         function getName( $id = null ) {
             return parent::getName( 'regions', 'regionid', $id );
         }
+
+        # pass through to parent's get id function
+        function getId( $name = null ) {
+            return parent::getId( 'regions', 'regionid', $name );
+        }
     }
 
 ?>

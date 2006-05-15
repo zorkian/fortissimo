@@ -17,6 +17,11 @@
         function getName( $id = null ) {
             return parent::getName( 'constellations', 'constellationid', $id );
         }
+
+        # pass through to parent's get id function
+        function getName( $name = null ) {
+            return parent::getId( 'constellations', 'constellationid', $name );
+        }
     }
 
 ?>
