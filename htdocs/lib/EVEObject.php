@@ -88,7 +88,7 @@
                 $my_id = $this->Id;
             } else {
                 # the id was NOT null, so the name is overwritten
-                $my_name = getName( $table, $primkeycol, $id );
+                $my_name = EVEObject::getName( $table, $primkeycol, $id );
             }
 
             # now construct the URL
