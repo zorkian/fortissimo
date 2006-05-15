@@ -60,13 +60,13 @@
         if ($which == 'pilot') {
             array_push($out, array(get_pilot_link($row->var1), $row->val));
         } elseif ($which == 'system') {
-            array_push($out, array(get_system_link($row->var1), $row->val));
+            array_push($out, array(EVESystem::getLink( $row->var1 ), $row->val));
         } elseif ($which == 'corp') {
             array_push($out, array(get_corp_link($row->var1), $row->val));
         } elseif ($which == 'alliance') {
             array_push($out, array(get_alliance_link($row->var1), $row->val));
         } elseif ($which == 'region') {
-            array_push($out, array(get_region_link($row->var1), $row->val));
+            array_push($out, array(EVERegion::getLink( $row->var1 ), $row->val));
         } elseif ($which == 'group') {
             array_push($out, array(get_group_link($row->var1), $row->val));
         } elseif ($which == 'ship') {
