@@ -26,6 +26,11 @@
             $this->ConstellationId = $this->int_Obj->constellationid;
         }
 
+        # return our security
+        function getSecurity() {
+            return $this->Security;
+        }
+
         # name of the region we're in
         function getRegionName() {
             return EVERegion::getName( $this->RegionId );
