@@ -264,11 +264,6 @@
         $url = $_WEB_URL . "/show_pilot.php?pilotid=" . $pilotid;
         return "<a href='$url'>" . get_pilot_name($pilotid) . "</a>";
     }
-    function get_alliance_link($allianceid) {
-        global $_WEB_URL;
-        $url = $_WEB_URL . "/show.php?allianceid=" . $allianceid;
-        return "<a href='$url'>" . get_alliance_name($allianceid) . "</a>";
-    }
     function get_corp_link($corpid) {
         global $_WEB_URL;
         $url = $_WEB_URL . "/show_corp.php?corpid=" . $corpid;
@@ -293,24 +288,6 @@
         global $_WEB_URL;
         $url = $_WEB_URL . "/show.php?itemid=" . $itemid;
         return "<a href='$url'>" . get_item_name($itemid) . "</a>";
-    }
-
-    # given systemid, return system name
-    function get_alliance_name($regionid) {
-        if ($regionid <= 0) {
-            return null;
-        }
-        if ($name = _cache("alliance_name", $regionid)) {
-            return $name;
-        }
-        global $ft;
-        $sys = $ft->dbh->_select_row_as_object('SELECT name FROM tbl:alliances WHERE allianceid = ?',
-                                               array($regionid));
-        if ($sys) {
-            _cache("alliance_name", $regionid, $sys->name);
-            return $sys->name;
-        }
-        return null;
     }
 
     function get_pilot_with_info($charid, $name, $corpname, $alliancename) {
@@ -410,20 +387,6 @@
             $corpid = get_corp_id($name, $allianceid, 0);
         }
         return $corpid;
-    }
-
-    function get_alliance_id($name, $first = 1) {
-        global $ft;
-        if (is_null($name) || $name == 'None' || $name == 'Unknown') {
-            # None/Unknown seems to be a hint used by the game when a corp doesn't have an alliance
-            return 0;
-        }
-        $allianceid = $ft->dbh->_select_one('SELECT allianceid FROM tbl:alliances WHERE name = ?', array($name));
-        if (! $allianceid && $first) {
-            $ft->dbh->_do_query('INSERT INTO tbl:alliances (name) VALUES (?)', array($name));
-            $allianceid = get_alliance_id($name, 0);
-        }
-        return $allianceid;
     }
 
     function get_item_id($name) {
