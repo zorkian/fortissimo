@@ -1,0 +1,77 @@
+CREATE TABLE `plexer_alliances` (
+  `allianceid` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  `standings` int(11) default NULL,
+  `note` text,
+  PRIMARY KEY  (`allianceid`),
+  UNIQUE KEY `name` (`name`)
+);
+
+CREATE TABLE `plexer_corps` (
+  `corpid` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  `ticker` varchar(10) default NULL,
+  `standings` int(11) default NULL,
+  `allianceid` int(10) unsigned default NULL,
+  `allowed` int(10) unsigned default NULL,
+  `warmode` int(10) unsigned NOT NULL default '0',
+  `note` text,
+  PRIMARY KEY  (`corpid`),
+  UNIQUE KEY `name` (`name`)
+);
+
+CREATE TABLE `plexer_pilots` (
+  `pilotid` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  `corpid` int(10) unsigned default NULL,
+  `password` varchar(60) default NULL,
+  `roles` int(10) unsigned NOT NULL default '0',
+  `charid` int(10) unsigned default NULL,
+  PRIMARY KEY  (`pilotid`),
+  UNIQUE KEY `name` (`name`)
+);
+
+CREATE TABLE `plexer_plexes` (
+  `plexid` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  `rating` int(10) unsigned NOT NULL default '0',
+  `region` varchar(255) NOT NULL default '',
+  `system` varchar(255) NOT NULL default '',
+  `corpid` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`plexid`)
+);
+
+CREATE TABLE `plexer_schedule` (
+  `schedid` int(10) unsigned NOT NULL auto_increment,
+  `plexid` int(10) unsigned NOT NULL default '0',
+  `slotid` int(10) unsigned NOT NULL default '0',
+  `dayid` int(10) unsigned NOT NULL default '0',
+  `corpid` int(10) unsigned NOT NULL default '0',
+  `pilotid` int(10) unsigned NOT NULL default '0',
+  `ranattime` int(10) unsigned default NULL,
+  PRIMARY KEY  (`schedid`),
+  UNIQUE KEY `plexid` (`plexid`,`dayid`,`slotid`),
+  KEY `corpid` (`corpid`),
+  KEY `pilotid` (`pilotid`)
+);
+
+CREATE TABLE `plexer_slots` (
+  `slotid` int(10) unsigned NOT NULL auto_increment,
+  `plexid` int(10) unsigned NOT NULL default '0',
+  `active` int(10) unsigned NOT NULL default '0',
+  `name` varchar(255) NOT NULL default '',
+  `longdesc` text,
+  PRIMARY KEY  (`slotid`),
+  KEY `plexid` (`plexid`)
+);
+
+CREATE TABLE `plexer_comments` (
+  `commentid` int(10) unsigned NOT NULL auto_increment,
+  `plexid` int(10) unsigned NOT NULL,
+  `schedid` int(10) unsigned NOT NULL,
+  `pilotid` int(10) unsigned NOT NULL,
+  `lefttime` int(10) unsigned NOT NULL,
+  `content` text NOT NULL,
+  PRIMARY KEY  (`commentid`),
+  KEY `schedid` (`schedid`)
+);
