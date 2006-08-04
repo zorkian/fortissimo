@@ -26,7 +26,8 @@
     # store output here
     $out = "<center><b><font color='#ffff00'>Plexer - The Complex Scheduler</font></b><br />";
     $out .= "<font color='#ff0000'><b>$plex->name</b> in <b>$plex->system</b> rated <b>$plex->rating/10</b></font><br />";
-    $out .= "[ <a href='$_WEB_URL/'>Back to Top</a> ]";
+    $out .= "[ <a href='$_WEB_URL/'>Back to Top</a> ] [ <a href='$_WEB_URL/igb-showcomplex.php?id=$id'>Back to Complex</a> ] ";
+	$out .= "[ <a href='$_WEB_URL/igb-scheduleinfo.php?id=$id&schedid=$schedid'>Back to Scheduled Run</a> ]";
     $out .= "</center><br />";
 
     # now give them some commands

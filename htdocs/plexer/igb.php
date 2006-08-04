@@ -18,7 +18,7 @@
     }
 
     if ($obj->manager()) {
-        $out .= "</ul><p>Administrator's have the following options as well:</p><ul>";
+        $out .= "</ul><p>Administrators have the following options as well:</p><ul>";
         $out .= "<li><a href='$_WEB_URL/igb-addcomplex.php'>Add New Complex</a></li>";
         $out .= "<li><a href='$_WEB_URL/igb-manage.php'>Manage Access</a></li>";
     }

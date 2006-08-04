@@ -35,10 +35,19 @@ CREATE TABLE `plexer_plexes` (
   `plexid` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
   `rating` int(10) unsigned NOT NULL default '0',
-  `region` varchar(255) NOT NULL default '',
-  `system` varchar(255) NOT NULL default '',
+  systemid int unsigned not null,
   `corpid` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`plexid`)
+  PRIMARY KEY  (`plexid`),
+  key (systemid)
+);
+
+create table plexer_plexschedules (
+  plexid int unsigned not null,
+  `slotid` int(10) unsigned NOT NULL default '0',
+  `dayid` int(10) unsigned NOT NULL default '0',
+  schedid int unsigned not null,
+  primary key (plexid, slotid, dayid),
+  unique key (schedid)
 );
 
 CREATE TABLE `plexer_schedule` (
@@ -50,7 +59,7 @@ CREATE TABLE `plexer_schedule` (
   `pilotid` int(10) unsigned NOT NULL default '0',
   `ranattime` int(10) unsigned default NULL,
   PRIMARY KEY  (`schedid`),
-  UNIQUE KEY `plexid` (`plexid`,`dayid`,`slotid`),
+  KEY `plexid` (`plexid`,`dayid`,`slotid`),
   KEY `corpid` (`corpid`),
   KEY `pilotid` (`pilotid`)
 );

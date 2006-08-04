@@ -4,6 +4,7 @@
 	foreach ($comments as $comment) {
 		$pilot = get_pilot_name($comment->pilotid);
 		$content = preg_replace('/\r?\n/', '<br />', $comment->content);
+		$content = preg_replace('/</', '&lt;', $content);
 		$out .= "<font color='yellow'>Comment by <font color='red'>$pilot</font> at <font color='red'>";
 		$out .= $comment->leftdate . "</font>...</font><br />$content<br /><br />";
 	}
